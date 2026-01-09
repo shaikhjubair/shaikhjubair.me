@@ -809,3 +809,71 @@ span {
     font-weight: bold;
     letter-spacing: 0.5px;
 }
+
+
+/* =========================================
+   Certifications Section Styling
+   ========================================= */
+.certifications {
+    background: var(--second-bg-color); /* একটু ভিন্ন ব্যাকগ্রাউন্ড যাতে আলাদা বোঝা যায় */
+    padding-bottom: 5rem;
+}
+
+.cert-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+}
+
+.cert-box {
+    flex: 1 1 30rem;
+    background: var(--bg-color);
+    padding: 3rem 2rem;
+    border-radius: 2rem;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    transition: 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cert-box:hover {
+    border-color: var(--main-color);
+    transform: translateY(-10px);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+}
+
+.cert-icon {
+    font-size: 5rem;
+    color: var(--main-color);
+    margin-bottom: 1.5rem;
+}
+
+.cert-box h3 {
+    font-size: 2.2rem;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.cert-box p {
+    font-size: 1.5rem;
+    color: #ccc;
+    margin-bottom: 2.5rem;
+}
+
+/* ছোট বাটন ডিজাইন */
+.cert-box .btn {
+    padding: 0.8rem 2rem;
+    font-size: 1.4rem;
+    border-radius: 2rem;
+    background: transparent;
+    border: 2px solid var(--main-color);
+    color: var(--main-color);
+}
+
+.cert-box .btn:hover {
+    background: var(--main-color);
+    color: #000;
+    box-shadow: 0 0 1rem var(--main-color);
+}
