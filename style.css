@@ -1,31 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-/* --- 1. Global Variables & High-Performance Theme --- */
+/* =========================================
+   1. GLOBAL VARIABLES & FUTURISTIC THEME
+   ========================================= */
 :root {
     /* Deep Space Dark Theme */
-    --bg-color: #0b0d15;
-    --second-bg-color: #151925;
+    --bg-color: #05070a; /* Ultra Dark Blue */
+    --second-bg-color: #0f121b;
     --text-color: #e0e0e0;
     
-    /* Vibrant Neon Accents */
-    --main-color: #00f2ff; /* Cyan */
+    /* Neon Accents (High Contrast) */
+    --main-color: #00f2ff; /* Cyan Neon */
     --accent-color: #bd00ff; /* Electric Purple */
+    --uiu-color: #ff9900; /* UIU Special Orange */
     
-    --hover-color: #0cf;
-    --glass-bg: rgba(255, 255, 255, 0.05);
+    /* Effects */
+    --glass-bg: rgba(255, 255, 255, 0.03);
     --border-color: rgba(255, 255, 255, 0.1);
-    --box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
-}
-
-/* Light Mode (Optional - kept for JS toggle) */
-body.light-mode {
-    --bg-color: #f0f2f5;
-    --second-bg-color: #ffffff;
-    --text-color: #333;
-    --main-color: #0066ff;
-    --accent-color: #6600cc;
-    --glass-bg: rgba(0, 0, 0, 0.05);
-    --border-color: rgba(0, 0, 0, 0.1);
+    --box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+    --neon-glow: 0 0 10px var(--main-color), 0 0 20px var(--main-color);
 }
 
 * {
@@ -47,23 +40,12 @@ html {
 body {
     background: var(--bg-color);
     color: var(--text-color);
-    transition: background 0.3s, color 0.3s;
 }
 
-/* --- 2. Vibrant Background (Lag-Free) --- */
-.gradient-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    background: radial-gradient(circle at 15% 50%, rgba(0, 242, 255, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(189, 0, 255, 0.08), transparent 25%);
-    pointer-events: none;
-}
-
-/* Neural Canvas is handled by JS, default opacity here */
+/* =========================================
+   2. BACKGROUND ANIMATION (Floating Orbs)
+   ========================================= */
+/* Neural Canvas (JS controlled) */
 #neural-canvas {
     position: fixed;
     top: 0;
@@ -71,23 +53,58 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    opacity: 0.3; 
+    opacity: 0.4; 
 }
 
-/* --- 3. Header & Navigation --- */
+/* Glowing Orbs (CSS Design) */
+.fixed-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.glowing-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: floatOrb 10s infinite alternate ease-in-out;
+}
+
+.orb-1 {
+    width: 300px; height: 300px;
+    background: var(--accent-color);
+    top: -50px; left: -50px;
+}
+.orb-2 {
+    width: 400px; height: 400px;
+    background: var(--main-color);
+    bottom: 10%; right: -100px;
+    animation-delay: -5s;
+}
+.orb-3 {
+    width: 200px; height: 200px;
+    background: var(--uiu-color);
+    top: 40%; left: 30%;
+    opacity: 0.2;
+    animation-duration: 15s;
+}
+
+/* =========================================
+   3. HEADER & NAVIGATION (Glassmorphism)
+   ========================================= */
 .header {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    top: 0; left: 0; width: 100%;
     padding: 2rem 9%;
-    background: rgba(11, 13, 21, 0.9); /* High performance transparency */
-    backdrop-filter: blur(8px);
+    background: rgba(5, 7, 10, 0.8); /* Semi-transparent */
+    backdrop-filter: blur(15px); /* Strong Blur */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 100;
-    border-bottom: 1px solid var(--border-color);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .logo {
@@ -98,9 +115,10 @@ body {
     letter-spacing: 1px;
 }
 
-.logo .highlight {
+.logo .dot {
     color: var(--main-color);
-    text-shadow: 0 0 10px var(--main-color);
+    font-size: 4rem;
+    line-height: 0;
 }
 
 .navbar a {
@@ -109,12 +127,30 @@ body {
     margin-left: 3.5rem;
     font-weight: 500;
     transition: 0.3s;
+    position: relative;
 }
 
 .navbar a:hover,
 .navbar a.active {
     color: var(--main-color);
-    text-shadow: 0 0 8px rgba(0, 242, 255, 0.6);
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.6);
+}
+
+.navbar a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: -5px;
+    width: 0; height: 2px;
+    background: var(--main-color);
+    transition: 0.3s;
+}
+.navbar a:hover::after, .navbar a.active::after { width: 100%; }
+
+#menu-icon {
+    font-size: 3.6rem;
+    color: var(--text-color);
+    display: none;
+    cursor: pointer;
 }
 
 .theme-btn {
@@ -125,59 +161,49 @@ body {
     margin-left: 2rem;
     transition: 0.3s;
 }
+.theme-btn:hover { color: var(--main-color); transform: rotate(15deg); }
 
-.theme-btn:hover {
-    color: var(--accent-color);
-}
-
-#menu-icon {
-    font-size: 3.6rem;
-    color: var(--text-color);
-    display: none;
-    cursor: pointer;
-}
-
-/* --- 4. Reusable Styles --- */
+/* =========================================
+   4. REUSABLE COMPONENTS
+   ========================================= */
 section {
     min-height: 100vh;
     padding: 10rem 9% 2rem;
 }
 
-span {
-    color: var(--main-color);
-}
+span { color: var(--main-color); }
 
 .heading {
     text-align: center;
     font-size: 4.5rem;
     margin-bottom: 4rem;
+    position: relative;
+    z-index: 1;
 }
-
 .heading span {
-    color: var(--main-color);
-    text-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+    text-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
 }
 
+/* Button Glow Effect */
 .btn {
     display: inline-block;
     padding: 1.2rem 2.8rem;
     background: var(--main-color);
-    border-radius: 0.6rem;
-    box-shadow: 0 0 1.5rem rgba(0, 242, 255, 0.4);
+    border-radius: 5rem; /* Capsule Shape */
+    box-shadow: 0 0 2rem rgba(0, 242, 255, 0.4);
     font-size: 1.6rem;
-    color: #000; /* Black text on neon button for readability */
-    letter-spacing: 0.1rem;
+    color: #05070a;
     font-weight: 600;
     transition: 0.4s ease;
     border: 2px solid transparent;
 }
 
 .btn:hover {
-    box-shadow: none;
+    box-shadow: 0 0 4rem rgba(0, 242, 255, 0.6);
     background: transparent;
     color: var(--main-color);
     border: 2px solid var(--main-color);
-    transform: translateY(-3px);
+    transform: translateY(-5px) scale(1.05);
 }
 
 .btn-secondary {
@@ -187,14 +213,15 @@ span {
     box-shadow: none;
     margin-left: 1.5rem;
 }
-
 .btn-secondary:hover {
     background: var(--main-color);
     color: #000;
-    box-shadow: 0 0 1.5rem var(--main-color);
+    box-shadow: 0 0 2rem var(--main-color);
 }
 
-/* --- 5. Home Section --- */
+/* =========================================
+   5. HOME SECTION (MAGIC ANIMATION) ✨
+   ========================================= */
 .home {
     display: flex;
     justify-content: center;
@@ -205,93 +232,158 @@ span {
 .home-content h3 {
     font-size: 3.2rem;
     font-weight: 700;
+    opacity: 0;
+    animation: slideBottom 1s ease forwards;
+    animation-delay: 0.5s;
 }
 
 .home-content h1 {
-    font-size: 5.6rem;
-    font-weight: 700;
+    font-size: 6rem;
+    font-weight: 800;
     line-height: 1.2;
     margin: 1rem 0;
+    background: linear-gradient(to right, #fff, var(--main-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    animation: slideRight 1s ease forwards;
+    animation-delay: 0.7s;
 }
 
 .home-content p {
     font-size: 1.6rem;
     margin: 2rem 0 3rem;
     max-width: 600px;
-    color: #bdbdbd;
+    color: #c4c4c4;
+    line-height: 1.6;
+    opacity: 0;
+    animation: slideLeft 1s ease forwards;
+    animation-delay: 1s;
 }
 
+/* Social Media Icons */
 .social-media a {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 4.2rem;
-    height: 4.2rem;
+    width: 4.5rem; height: 4.5rem;
     background: transparent;
     border: 2px solid var(--main-color);
     border-radius: 50%;
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: var(--main-color);
     margin: 0 1.5rem 3rem 0;
     transition: 0.4s ease;
+    opacity: 0;
+    animation: slideLeft 1s ease forwards;
+    animation-delay: calc(.2s * var(--i));
 }
-
 .social-media a:hover {
     background: var(--main-color);
     color: #000;
-    box-shadow: 0 0 1.5rem var(--main-color);
+    box-shadow: 0 0 2rem var(--main-color);
     transform: translateY(-5px);
 }
 
+/* --- ছবি ও আলোর কন্টেইনার --- */
 .home-img .img-box {
     position: relative;
-    width: 32vw;
+    width: 32vw; /* আপনার সাইট অনুযায়ী সাইজ */
     height: 32vw;
     border-radius: 50%;
     padding: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow: hidden; /* বাইরের বাড়তি আলো ঢেকে দেবে */
 }
 
+/* --- ১ম ঘোরানো আলো (Blue/Main Color) --- */
 .home-img .img-box::before {
     content: '';
     position: absolute;
     width: 500px;
     height: 500px;
+    /* আপনার মেইন কালার ব্যবহার করা হয়েছে */
     background: conic-gradient(transparent, transparent, transparent, var(--main-color));
     animation: rotate-border 4s linear infinite;
 }
 
+/* --- ২য় ঘোরানো আলো (Accent Color) --- */
 .home-img .img-box::after {
     content: '';
     position: absolute;
     width: 500px;
     height: 500px;
+    /* আপনার দ্বিতীয় কালার ব্যবহার করা হয়েছে */
     background: conic-gradient(transparent, transparent, transparent, var(--accent-color));
     animation: rotate-border 4s linear infinite;
-    animation-delay: -2s;
+    animation-delay: -2s; /* এটি ১ম আলোর ঠিক উল্টো পাশে থাকবে */
 }
 
+/* --- ছবির ভেতরের ফ্রেম (এটি বর্ডার তৈরি করতে সাহায্য করে) --- */
 .home-img .img-item {
     position: relative;
     width: 98%;
     height: 98%;
-    background: var(--bg-color);
+    background: var(--bg-color); /* পেছনের আলো ঢেকে বর্ডার ইফেক্ট দেয় */
     border-radius: 50%;
     z-index: 1;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+/* --- মূল প্রোফাইল ছবি --- */
 .home-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    mix-blend-mode: normal; /* Ensures image is clear */
+    mix-blend-mode: normal;
 }
 
-/* --- 6. About Section (With Orbit Animation) --- */
+/* --- আলোর ঘূর্ণন অ্যানিমেশন --- */
+@keyframes rotate-border {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* --- মোবাইল রেস্পন্সিভনেস --- */
+@media (max-width: 768px) {
+    .home-img .img-box {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+/* মাউস ছবির ওপর নিলে পুরো বক্সটি উজ্জ্বল হবে */
+.home-img .img-box:hover {
+    box-shadow: 0 0 30px var(--main-color), 
+                0 0 60px var(--main-color); /* চারপাশ থেকে নিওন আলো ছড়িয়ে পড়বে */
+    transition: 0.5s ease;
+}
+
+/* মাউস নিলে ছবি নিজে উজ্জ্বল হবে */
+.home-img .img-box:hover img {
+    filter: brightness(1.2); /* ছবি উজ্জ্বল হবে */
+    transform: scale(1.02); /* ছবি সামান্য বড় হবে */
+    transition: 0.5s ease;
+}
+
+/* মাউস নিলে বর্ডারের আলো আরও স্পষ্ট হবে */
+.home-img .img-box:hover::before,
+.home-img .img-box:hover::after {
+    filter: brightness(1.5) drop-shadow(0 0 15px var(--main-color));
+}
+
+/* =========================================
+   6. ABOUT SECTION (ORBIT ANIMATION) 🪐
+   ========================================= */
 .about {
     display: flex;
     justify-content: center;
@@ -302,377 +394,271 @@ span {
 
 .about-img {
     position: relative;
-    width: 350px; /* Increased image container size slightly */
-    height: 350px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 350px; height: 350px;
+    display: flex; justify-content: center; align-items: center;
 }
 
-.about-img img {
-    width: 80%;
-    height: 80%;
+.orbit-container {
+    position: relative;
+    width: 100%; height: 100%;
+}
+
+.orbit-container img {
+    width: 60%; height: 60%;
     border-radius: 50%;
-    border: 3px solid var(--main-color);
+    position: absolute;
+    top: 20%; left: 20%;
     object-fit: cover;
-    z-index: 2;
+    border: 3px solid var(--main-color);
     box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+    z-index: 2;
 }
 
-/* The Orbit Circle */
-.tech-orbit {
+/* The Rotating Ring */
+.orbit-ring {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     border-radius: 50%;
     border: 1px dashed rgba(255, 255, 255, 0.1);
-    animation: rotateOrbit 15s linear infinite;
-    z-index: 1;
+    animation: rotateOrbit 20s linear infinite;
 }
 
-.tech-orbit .planet {
+/* Floating Icons on the Ring */
+.planet {
     position: absolute;
-    width: 55px; /* Slightly bigger planets */
-    height: 55px;
-    background: var(--second-bg-color);
+    width: 50px; height: 50px;
+    background: var(--bg-color);
     border: 1px solid var(--main-color);
     border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.2rem; /* Bigger icons */
-    color: var(--main-color);
-    box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+    display: flex; justify-content: center; align-items: center;
+    font-size: 2rem; color: var(--main-color);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
 }
 
-/* Positioning planets on the circle */
-.tech-orbit .planet:nth-child(1) { top: -25px; left: 50%; transform: translateX(-50%); }
-.tech-orbit .planet:nth-child(2) { bottom: 20px; left: -10px; }
-.tech-orbit .planet:nth-child(3) { bottom: 20px; right: -10px; }
+/* Positioning Icons */
+.planet.python { top: -25px; left: 50%; transform: translateX(-50%); }
+.planet.ai { bottom: 20%; left: -10px; }
+.planet.code { bottom: 20%; right: -10px; }
+.planet.data { bottom: -25px; left: 50%; transform: translateX(-50%); }
 
-.tech-orbit .planet i {
-    animation: rotateOrbit 15s linear infinite reverse;
-}
+/* Counter Rotate Icons to keep them upright */
+.planet i { animation: rotateOrbit 20s linear infinite reverse; }
 
-.about-content {
-    flex: 1;
-}
-
-/* --- UPDATED TEXT SIZES HERE --- */
-.about-content h3 {
-    font-size: 3.2rem; /* Was 2.6rem -> Increased */
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: var(--text-color);
-}
-
-.about-content p {
-    font-size: 1.8rem; /* Was 1.6rem -> Increased */
-    line-height: 1.8;  /* Adds more space between lines for readability */
-    margin: 2rem 0 3rem;
-}
+.about-content { flex: 1; }
+.about-content h3 { font-size: 2.6rem; font-weight: 700; margin-bottom: 1rem; color: #fff; }
+.about-content p { font-size: 1.6rem; margin: 2rem 0 3rem; line-height: 1.8; }
 
 .about-details {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adjusted width */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.5rem;
     margin-bottom: 3rem;
 }
-
 .detail-item {
-    padding: 1.5rem; /* More padding */
+    padding: 1.5rem;
     background: var(--glass-bg);
     border-radius: 0.5rem;
-    border-left: 4px solid var(--main-color); /* Thicker border */
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    font-size: 1.7rem; /* Was 1.4rem -> Increased significantly */
-    font-weight: 500;
+    border-left: 3px solid var(--main-color);
+    display: flex; align-items: center; gap: 1rem;
+    font-size: 1.4rem; font-weight: 500;
 }
 
-/* --- 7. Expertise (Services) Section --- */
-.services-container {
+/* --- SKILLS SECTION (ICON BOX STYLE) --- */
+.skills {
+    background: var(--bg-color);
+}
+
+.skills-container {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 2.5rem;
+    gap: 2rem;
 }
 
-.service-box {
-    flex: 1 1 300px;
+.skill-box {
+    flex: 1 1 15rem; /* বক্সের সাইজ */
     background: var(--second-bg-color);
-    padding: 3rem 2rem 4rem;
+    padding: 2.5rem 1.5rem;
     border-radius: 1rem;
     text-align: center;
     border: 1px solid var(--border-color);
     transition: 0.4s ease;
+    cursor: pointer;
     position: relative;
     overflow: hidden;
 }
 
-.service-box::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
-    transition: 0.5s;
-}
-
-.service-box:hover::before {
-    width: 100%;
-}
-
-.service-box:hover {
+/* Hover Effect - Glow & Lift */
+.skill-box:hover {
     transform: translateY(-10px);
     border-color: var(--main-color);
-    box-shadow: 0 0 25px rgba(0, 242, 255, 0.15);
+    box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
 }
 
-.service-box i {
-    font-size: 6rem;
+.skill-box i {
+    font-size: 5rem; /* আইকনের সাইজ */
     color: var(--main-color);
     margin-bottom: 1rem;
     transition: 0.3s;
 }
 
-.service-box:hover i {
+.skill-box:hover i {
     color: var(--accent-color);
     text-shadow: 0 0 10px var(--accent-color);
-}
-
-.service-box h3 {
-    font-size: 2.4rem;
-    margin-bottom: 1rem;
-}
-
-.service-box p {
-    font-size: 1.5rem;
-    color: #ccc;
-    margin-bottom: 2rem;
-}
-
-/* --- 8. Tech Stack (Skills) --- */
-.skills {
-    background: var(--second-bg-color);
-}
-
-.skills-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5rem;
-}
-
-.skills-column {
-    flex: 1 1 40rem;
-}
-
-.skills-column .title {
-    font-size: 2.2rem;
-    margin-bottom: 1.5rem;
-}
-
-.skills-box {
-    position: relative;
-    background: var(--bg-color);
-    padding: 2.5rem;
-    border-radius: 1rem;
-    border: 1px solid var(--border-color);
-}
-
-.skills-content .progress {
-    padding: 1rem 0;
-}
-
-.skills-content .progress h3 {
-    font-size: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-}
-
-.skills-content .progress .bar {
-    height: 1.5rem;
-    border-radius: 1rem;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 1rem 0;
-    overflow: hidden;
-}
-
-.skills-content .progress .bar span {
-    display: block;
-    height: 100%;
-    border-radius: 1rem;
-    background: linear-gradient(90deg, var(--main-color), var(--accent-color));
-    position: relative;
-}
-
-/* Use Width Variables for Default View (JS can override) */
-.skills-column:nth-child(1) .progress:nth-child(1) .bar span { width: 95%; }
-.skills-column:nth-child(1) .progress:nth-child(2) .bar span { width: 85%; }
-.skills-column:nth-child(1) .progress:nth-child(3) .bar span { width: 80%; }
-.skills-column:nth-child(1) .progress:nth-child(4) .bar span { width: 75%; }
-
-.skills-column:nth-child(2) .progress:nth-child(1) .bar span { width: 90%; }
-.skills-column:nth-child(2) .progress:nth-child(2) .bar span { width: 85%; }
-.skills-column:nth-child(2) .progress:nth-child(3) .bar span { width: 80%; }
-.skills-column:nth-child(2) .progress:nth-child(4) .bar span { width: 95%; }
-
-/* --- 9. Portfolio Section --- */
-.portfolio-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2.5rem;
-}
-
-.portfolio-box {
-    position: relative;
-    border-radius: 1rem;
-    box-shadow: 0 0 1rem rgba(0,0,0,0.5);
-    overflow: hidden;
-    height: 250px;
-    border: 1px solid var(--border-color);
-}
-
-.portfolio-box img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: 0.5s ease;
-}
-
-.portfolio-box:hover img {
     transform: scale(1.1);
-    opacity: 0.6;
 }
 
-.portfolio-layer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, var(--second-bg-color), transparent);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    padding: 0 4rem;
-    transform: translateY(100%);
-    transition: 0.5s ease;
-    backdrop-filter: blur(3px);
-}
-
-.portfolio-box:hover .portfolio-layer {
-    transform: translateY(0);
-}
-
-.portfolio-layer h4 {
-    font-size: 2.5rem;
-    color: var(--main-color);
-}
-
-.portfolio-layer p {
-    font-size: 1.5rem;
-    margin: 1rem 0 2rem;
+.skill-box h3 {
+    font-size: 1.7rem;
+    font-weight: 500;
     color: #fff;
 }
 
-.portfolio-layer a {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 4.5rem;
-    height: 4.5rem;
-    background: #fff;
-    border-radius: 50%;
-}
-
-.portfolio-layer a i {
-    font-size: 2rem;
-    color: #333;
-}
-
-/* --- 10. Contact Section --- */
-.contact {
+/* =========================================
+   8. EDUCATION (UIU FIRE EFFECT) 🔥
+   ========================================= */
+.education {
     background: var(--second-bg-color);
+    padding-bottom: 5rem;
 }
+.education-row { display: flex; justify-content: center; }
+.education-column { flex: 1 1 60rem; max-width: 800px; }
+.education-column .title { font-size: 2.5rem; margin-bottom: 2rem; color: #fff; }
 
-.contact form {
-    max-width: 70rem;
-    margin: 1rem auto;
-    text-align: center;
-}
-
-.contact form .input-box {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-.contact form .input-box .input-field {
-    width: 49%;
-    margin: 0.8rem 0;
-}
-
-.contact form .input-field input,
-.contact form .textarea-field textarea {
-    width: 100%;
-    padding: 1.5rem;
-    font-size: 1.6rem;
-    color: var(--text-color);
+.education-box {
+    border-left: .3rem solid var(--main-color);
     background: var(--bg-color);
-    border-radius: 0.6rem;
+    margin-bottom: 2rem;
+    padding: 2.5rem;
+    border-radius: .5rem;
+    position: relative;
+    transition: .4s ease;
+}
+.education-box:hover {
+    transform: translateX(10px);
+    background: #0d1117;
+}
+
+.education-content .year {
+    font-size: 1.4rem; color: var(--main-color);
+    margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem;
+}
+.education-content h3 { font-size: 2rem; color: #fff; }
+.education-content p { font-size: 1.5rem; color: #ccc; margin-top: 0.5rem; }
+
+/* UIU SPECIAL STYLE */
+.education-box.uiu-style {
+    border-left-color: var(--uiu-color);
+    background: linear-gradient(90deg, rgba(255, 153, 0, 0.05), transparent);
+}
+.education-box.uiu-style:hover {
+    background: rgba(255, 153, 0, 0.08);
+    box-shadow: 0 0 30px rgba(255, 153, 0, 0.2);
+}
+.education-box.uiu-style .year { color: var(--uiu-color); }
+.education-box.uiu-style .uni-name {
+    color: var(--uiu-color); font-weight: 700; letter-spacing: 0.5px;
+}
+
+/* =========================================
+   9. CERTIFICATIONS & PROJECTS 🏆
+   ========================================= */
+.certifications, .portfolio { background: var(--bg-color); }
+.portfolio { background: var(--second-bg-color); }
+
+.cert-container, .portfolio-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    padding: 0 2rem;
+}
+
+/* Cert Cards */
+.cert-box {
+    background: var(--second-bg-color);
+    padding: 3rem 2rem;
+    border-radius: 1.5rem;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    transition: 0.5s ease;
+}
+.cert-box:hover {
+    transform: translateY(-10px);
+    border-color: var(--main-color);
+    box-shadow: 0 10px 30px rgba(0, 242, 255, 0.15);
+}
+.cert-icon { font-size: 5rem; color: var(--main-color); margin-bottom: 1.5rem; }
+
+/* Project Cards */
+.portfolio-box {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    height: 250px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+.portfolio-box img {
+    width: 100%; height: 100%; object-fit: cover; transition: 0.5s ease;
+}
+.portfolio-box:hover img { transform: scale(1.1); filter: blur(2px) brightness(0.6); }
+
+.portfolio-layer {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; padding: 0 2rem;
+    transform: translateY(100%);
+    transition: 0.5s ease;
+}
+.portfolio-box:hover .portfolio-layer { transform: translateY(0); }
+.portfolio-layer h4 { font-size: 2.4rem; color: var(--main-color); margin-bottom: 1rem; }
+.portfolio-layer p { font-size: 1.4rem; color: #fff; margin-bottom: 2rem; }
+.portfolio-layer a {
+    width: 5rem; height: 5rem; background: #fff; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+}
+.portfolio-layer a i { font-size: 2rem; color: #000; }
+
+/* =========================================
+   10. CONTACT SECTION ✉️
+   ========================================= */
+.contact { background: var(--bg-color); }
+.contact form { max-width: 700px; margin: 0 auto; text-align: center; }
+
+.contact form .input-box { display: flex; justify-content: space-between; gap: 1.5rem; }
+.contact form .input-field { width: 100%; margin-bottom: 1.5rem; }
+
+.contact form input, .contact form textarea {
+    width: 100%; padding: 1.5rem;
+    font-size: 1.6rem; color: var(--text-color);
+    background: var(--second-bg-color);
+    border-radius: .8rem;
     border: 1px solid var(--border-color);
     transition: 0.3s;
 }
-
-.contact form .input-field input:focus,
-.contact form .textarea-field textarea:focus {
+.contact form input:focus, .contact form textarea:focus {
     border-color: var(--main-color);
-    box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
 }
+.contact form textarea { resize: none; height: 200px; }
 
-.contact form .textarea-field textarea {
-    resize: none;
-    height: 200px;
-}
-
-/* --- 11. Footer --- */
+/* =========================================
+   11. FOOTER & MEDIA QUERIES 📱
+   ========================================= */
 .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem 9%;
-    background: var(--bg-color);
-    border-top: 1px solid var(--border-color);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 2rem 9%; background: var(--second-bg-color);
 }
-
 .footer-iconTop a {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.8rem;
-    background: var(--main-color);
-    border-radius: 0.6rem;
-    transition: 0.4s ease;
+    padding: .8rem; background: var(--main-color); border-radius: .5rem;
 }
+.footer-iconTop a i { font-size: 2rem; color: #000; }
 
-.footer-iconTop a:hover {
-    box-shadow: 0 0 1rem var(--main-color);
-    background: var(--accent-color);
-}
-
-.footer-iconTop a i {
-    font-size: 2.4rem;
-    color: #000;
-}
-
-/* --- Animations Keyframes --- */
-@keyframes rotate-border {
+/* --- ANIMATION KEYFRAMES (THE ENGINE) --- */
+@keyframes rotateBorder {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
@@ -682,198 +668,151 @@ span {
     100% { transform: rotate(360deg); }
 }
 
-/* --- Media Queries --- */
-@media (max-width: 1200px) {
-    html { font-size: 55%; }
+@keyframes floatOrb {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(30px, 50px); }
 }
 
+@keyframes slideBottom {
+    0% { transform: translateY(-100px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes slideRight {
+    0% { transform: translateX(-100px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes slideLeft {
+    0% { transform: translateX(100px); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
 @media (max-width: 991px) {
     .header { padding: 2rem 3%; }
     section { padding: 10rem 3% 2rem; }
-    .footer { padding: 2rem 3%; }
     .home { flex-direction: column; text-align: center; }
-    .home-img .img-box { width: 50vw; height: 50vw; margin-top: 2rem; }
+    .home-content h1 { font-size: 5rem; }
     .about { flex-direction: column; text-align: center; }
     .about-details { text-align: left; }
 }
 
 @media (max-width: 768px) {
     #menu-icon { display: block; }
-
     .navbar {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        padding: 1rem 3%;
-        background: var(--bg-color);
-        border-top: 1px solid var(--border-color);
-        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.5);
+        position: absolute; top: 100%; left: 0; width: 100%;
+        padding: 1rem 3%; background: var(--second-bg-color);
+        border-top: 1px solid rgba(255,255,255,0.1);
         display: none;
     }
-
     .navbar.active { display: block; }
-    .navbar a { display: block; font-size: 2rem; margin: 3rem 0; }
+    .navbar a { display: block; font-size: 2rem; margin: 3rem 0; text-align: center; }
     
     .home-img .img-box { width: 70vw; height: 70vw; }
-}
-
-@media (max-width: 450px) {
-    html { font-size: 50%; }
-    .contact form .input-box .input-field { width: 100%; }
-    .home-content h1 { font-size: 4rem; }
+    .contact form .input-box { flex-direction: column; }
 }
 
 /* =========================================
-   Education Section & UIU Special Theme
+   PORTFOLIO SECTION (Projects)
    ========================================= */
+.portfolio {
+    background: var(--bg-color);
+}
 
-.education {
+.portfolio-heading {
+    text-align: center;
+    font-size: 4.5rem;
+}
+
+.portfolio-container {
+    display: grid;
+    /* এখন যেহেতু মাত্র ২টা প্রজেক্ট, তাই আমরা ২টা কলাম দিচ্ছি */
+    grid-template-columns: repeat(2, 1fr); 
+    align-items: center;
+    gap: 2.5rem;
+    max-width: 1000px; /* বক্সগুলো যাতে খুব বেশি ছড়িয়ে না যায় */
+    margin: 0 auto;    /* পুরো কন্টেইনারকে মাঝখানে রাখার জন্য */
+}
+
+.portfolio-box {
+    position: relative;
+    border-radius: 2rem;
+    box-shadow: 0 0 1rem var(--bg-color);
+    overflow: hidden;
+    display: flex;
+    height: 300px; /* ছবির হাইট ফিক্সড রাখা হয়েছে */
+    border: 2px solid var(--border-color); /* হালকা বর্ডার */
+}
+
+/* প্রজেক্টের ছবি */
+.portfolio-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ছবি চ্যাপ্টা না হয়ে সুন্দরভাবে ফিট হবে */
+    transition: 0.5s ease;
+}
+
+/* মাউস ধরলে ছবি একটু জুম হবে */
+.portfolio-box:hover img {
+    transform: scale(1.1);
+}
+
+/* প্রজেক্টের ওপর নীল লেয়ার (Hover Effect) */
+.portfolio-layer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0,0,0,0.1), var(--main-color)); /* ওপর থেকে নিচে কালার গ্রেডিয়েন্ট */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    min-height: auto;
-    padding-bottom: 5rem;
+    text-align: center;
+    padding: 0 4rem;
+    transform: translateY(100%); /* শুরুতে নিচে লুকানো থাকবে */
+    transition: 0.5s ease;
 }
 
-.education-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5rem;
+/* মাউস ধরলে লেখাগুলো উপরে ভেসে উঠবে */
+.portfolio-box:hover .portfolio-layer {
+    transform: translateY(0);
 }
 
-.education-column {
-    flex: 1 1 40rem;
+.portfolio-layer h4 {
+    font-size: 3rem;
+    color: #fff; /* সাদা টেক্সট */
 }
 
-.education-column .title {
-    font-size: 2.5rem;
-    margin: 0 0 1.5rem 2rem;
+.portfolio-layer p {
+    font-size: 1.6rem;
+    margin: 0.3rem 0 1rem;
     color: #fff;
 }
 
-.education-box {
-    border-left: .2rem solid #00f2ff;
-    background: #1f242d;
-    margin: 0 0 2rem 2rem;
-    position: relative;
-    border-radius: .5rem; 
-    padding: 2rem; 
-    overflow: hidden;
-    transition: .5s ease;
-}
-
-.education-box:hover {
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
-    transform: translateY(-5px);
-}
-
-.education-content .year {
-    font-size: 1.5rem;
-    color: #00f2ff;
-    padding-bottom: .5rem;
-    display: flex;
+/* লিংকের বাটন আইকন */
+.portfolio-layer a {
+    display: inline-flex;
+    justify-content: center;
     align-items: center;
-    gap: 1rem;
+    width: 5rem;
+    height: 5rem;
+    background: #fff;
+    border-radius: 50%;
 }
 
-.education-content h3 {
+.portfolio-layer a i {
     font-size: 2rem;
-    color: #fff; 
+    color: var(--second-bg-color);
 }
-
-.education-content p {
-    font-size: 1.6rem; 
-    color: #ccc; 
-    padding-top: .5rem; 
-}
-
-/* --- UIU SPECIAL STYLE (Orange Flame Theme) --- */
-.education-box.uiu-style {
-    border-left: .3rem solid #ff9900; /* UIU Flame Color */
-    background: linear-gradient(90deg, rgba(255, 153, 0, 0.05), transparent);
-}
-
-.education-box.uiu-style:hover {
-    background: rgba(255, 153, 0, 0.1);
-    box-shadow: 0 0 25px rgba(255, 153, 0, 0.4); 
-}
-
-.education-box.uiu-style .year {
-    color: #ff9900; 
-}
-
-.education-box.uiu-style .uni-name {
-    color: #ffae00; 
-    font-weight: bold;
-    letter-spacing: 0.5px;
-}
-
 
 /* =========================================
-   Certifications Section Styling
+   MOBILE RESPONSIVENESS
    ========================================= */
-.certifications {
-    background: var(--second-bg-color);
-    padding-bottom: 5rem;
+@media (max-width: 768px) {
+    .portfolio-container {
+        /* মোবাইলে একটার নিচে একটা দেখাবে */
+        grid-template-columns: 1fr; 
+    }
 }
 
-.cert-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 2.5rem;
-}
-
-.cert-box {
-    flex: 1 1 30rem;
-    background: var(--bg-color);
-    padding: 3rem 2rem;
-    border-radius: 2rem;
-    text-align: center;
-    border: 1px solid var(--border-color);
-    transition: 0.5s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.cert-box:hover {
-    border-color: var(--main-color);
-    transform: translateY(-10px);
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
-}
-
-.cert-icon {
-    font-size: 5rem;
-    color: var(--main-color);
-    margin-bottom: 1.5rem;
-}
-
-.cert-box h3 {
-    font-size: 2.2rem;
-    color: #fff;
-    margin-bottom: 1rem;
-}
-
-.cert-box p {
-    font-size: 1.5rem;
-    color: #ccc;
-    margin-bottom: 2.5rem;
-}
-
-.cert-box .btn {
-    padding: 0.8rem 2rem;
-    font-size: 1.4rem;
-    border-radius: 2rem;
-    background: transparent;
-    border: 2px solid var(--main-color);
-    color: var(--main-color);
-    text-transform: uppercase;
-}
-
-.cert-box .btn:hover {
-    background: var(--main-color);
-    color: #000;
-    box-shadow: 0 0 1rem var(--main-color);
-}
