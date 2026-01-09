@@ -193,3 +193,38 @@ function animateCanvas() {
 // Start Canvas
 initParticles();
 animateCanvas();
+
+/* =========================================
+   7. EmailJS Integration (Contact Form)
+   ========================================= */
+
+(function() {
+    // 1. এখানে আপনার Public Key বসান
+    emailjs.init("zEqO8VxQ6Jyt0azg6"); 
+})();
+
+document.getElementById('contact-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // পেজ রিলোড বন্ধ করবে
+
+    const btn = this.querySelector('button');
+    const originalText = btn.innerText;
+    btn.innerText = 'Sending...'; // বাটনের লেখা চেঞ্জ হবে
+
+    // 2. এখানে আপনার Service ID বসান
+    const serviceID = 'service_rmicabe'; 
+
+    // 3. এখানে আপনার Template ID বসান
+    const templateID = 'template_4i4885g'; 
+
+    emailjs.sendForm(serviceID, templateID, this)
+        .then(() => {
+            btn.innerText = 'Sent!';
+            alert('Message Sent Successfully! 🚀');
+            document.getElementById('contact-form').reset();
+            setTimeout(() => btn.innerText = originalText, 2000);
+        }, (err) => {
+            btn.innerText = originalText;
+            alert('Failed to send message. Please try again.');
+            console.log(JSON.stringify(err));
+        });
+});
