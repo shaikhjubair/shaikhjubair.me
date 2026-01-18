@@ -15,7 +15,8 @@
     <meta property="og:url" content="https://shaikhjubair.me/">
     <meta property="og:title" content="Shaikh Jubair | AI Engineer & Data Scientist">
     <meta property="og:description" content="Portfolio of Shaikh Jubair - AI Engineer specializing in Machine Learning, Python, and Data Science.">
-    <meta property="og:image" content="https://shaikhjubair.me/profile.jpg"> <meta property="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="https://shaikhjubair.me/profile.jpg"> 
+    <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://shaikhjubair.me/">
     <meta property="twitter:title" content="Shaikh Jubair | AI Engineer & Data Scientist">
     <meta property="twitter:description" content="Portfolio of Shaikh Jubair - AI Engineer specializing in Machine Learning, Python, and Data Science.">
@@ -49,6 +50,63 @@
     <link href="style.css?v=8" rel="stylesheet">
     
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <style>
+        .cert-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            padding: 0 2rem;
+        }
+        .cert-box {
+            background: var(--second-bg-color, #1f242d);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .cert-box:hover {
+            transform: translateY(-10px);
+            border-color: #0ef;
+            box-shadow: 0 0 20px rgba(0, 238, 255, 0.2);
+        }
+        .cert-img-wrapper {
+            width: 100%;
+            height: 220px; /* ছবির উচ্চতা ফিক্সড রাখা হলো যাতে সব সমান দেখায় */
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .cert-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* ছবিটি পুরো বক্স জুড়ে থাকবে */
+            transition: 0.5s ease;
+        }
+        .cert-box:hover .cert-img-wrapper img {
+            transform: scale(1.05);
+        }
+        .cert-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+        .cert-box p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            color: #ccc;
+        }
+        .cert-box .btn {
+            margin-top: auto; /* বাটন সবসময় নিচে থাকবে */
+        }
+    </style>
 </head>
 
 <body>
@@ -196,30 +254,38 @@
     <section class="certifications" id="certifications">
         <div class="modern-art-waves"></div>
         <h2 class="heading">Global <span>Certifications</span></h2>
+        
         <div class="cert-container">
+            
             <div class="cert-box">
-                <i class="bx cert-icon bx-brain"></i>
+                <div class="cert-img-wrapper">
+                    <img src="citi-certificate.jpg" alt="MIMIC-III Data Access">
+                </div>
+                <h3>MIMIC-III Data Access</h3>
+                <p>CITI Program (Human Research)</p>
+                <a href="https://www.citiprogram.org/verify/?we2a9932f-cf2f-4f3c-8ac6-e3063fae8664-74654460" class="btn" target="_blank">Verify Credential</a>
+            </div>
+
+            <div class="cert-box">
+                <div class="cert-img-wrapper">
+                    <img src="ml-certificate.jpg" alt="Machine Learning Specialization">
+                </div>
                 <h3>Machine Learning Specialization</h3>
                 <p>Stanford University & DeepLearning.AI</p>
                 <a href="https://coursera.org/verify/specialization/RLZ5EX18NFEV" class="btn" target="_blank">Verify Credential</a>
             </div>
 
             <div class="cert-box">
-                <i class="bx cert-icon bxl-python"></i>
-                <h3>Python (Basic) Gold Badge</h3>
-                <p>HackerRank Verified Skill</p>
-                <a href="https://www.hackerrank.com/certificates/d727d2ec29c7" class="btn" target="_blank">View Certificate</a>
+                <div class="cert-img-wrapper">
+                    <img src="ai-prompt-cert.jpg" alt="AI+ Prompt Engineer">
+                </div>
+                <h3>AI+ Prompt Engineer Level 1</h3>
+                <p>AICERTS™ - Blockchain Verified</p>
+                <a href="#" class="btn" target="_blank">Verify Credential</a>
             </div>
-
-            <div class="cert-box">
-                <i class="bx cert-icon bxs-award"></i>
-                <h3>Professional Course Completion</h3>
-                <p>Verified via Certs365</p>
-                <a href="https://verify.certs365.io/?=b06b762da55a" class="btn" target="_blank">Verify Credential</a>
-            </div>
+            
         </div>
     </section>
-
     <section class="portfolio" id="portfolio">
         <div class="modern-art-waves"></div>
         <h2 class="heading">Latest <span>Projects</span></h2>
