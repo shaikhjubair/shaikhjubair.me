@@ -407,3 +407,90 @@ section:nth-of-type(n+2)::after,
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px;
 }
+
+/* Hero Section Update */
+.blog-hero {
+    padding: 120px 9% 40px; /* উপরের প্যাডিং ১৪০ থেকে কমিয়ে ১২০ করা হলো, নিচে ৪০ */
+    min-height: auto; /* ফিক্সড হাইট বাদ দেওয়া হলো */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4rem;
+    width: 100%;
+    max-width: 1200px;
+    flex-wrap: wrap; /* মোবাইলে নিচে নিচে আসবে */
+}
+
+/* Left Content */
+.hero-content {
+    text-align: left; /* বাম দিকে টেক্সট */
+    flex: 1;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    margin: 15px 0;
+    line-height: 1.1;
+}
+
+/* Right Animation (New Terminal) */
+.hero-animation {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.terminal-box {
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid rgba(0, 242, 255, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Terminal Header Dots */
+.terminal-header {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+}
+.dot { width: 12px; height: 12px; border-radius: 50%; }
+.red { background: #ff5f56; }
+.yellow { background: #ffbd2e; }
+.green { background: #27c93f; }
+
+/* Typing Text */
+.terminal-body {
+    font-family: 'Courier New', monospace;
+    font-size: 1.4rem;
+    color: #00f2ff;
+}
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 18px;
+    background: var(--main-color);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .hero-wrapper { flex-direction: column; text-align: center; }
+    .hero-content { text-align: center; }
+    .blog-hero { padding-top: 100px; }
+    .hero-content h1 { font-size: 3rem; }
+}
